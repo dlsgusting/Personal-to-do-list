@@ -1,3 +1,5 @@
+import sys
+
 running = True
 
 task1 = {"title": "example", "completed": False}
@@ -37,7 +39,7 @@ def mark_task():
         try:
             task_num = int(input()) - 1
 
-            if task_num <= len(task_list):
+            if task_num < len(task_list):
                 break
             else:
                 print("Not a valid task number")
@@ -60,12 +62,30 @@ def mark_task():
         num = task_list[task_num]
         num["completed"] = False
 
+def delete_task():
+    print("Which task would you like to delete?")
+    while True:
+        try:
+            task_num = int(input()) - 1
+
+            if task_num < len(task_list):
+                break
+            else:
+                print("Not a valid task number")
+
+        except ValueError:
+            print("Please enter a valid task number.")
+    del task_list[task_num]
+
+def exit_menu():
+    sys.exit()
+
 actions = {
     1: view_task,
     2: add_task,
-    3: mark_task
-    # 4: delete_task,
-    # 5: exit_menu
+    3: mark_task,
+    4: delete_task,
+    5: exit_menu
 }
 
 while running:
