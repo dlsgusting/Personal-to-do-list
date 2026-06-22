@@ -2,13 +2,14 @@ import sys
 
 running = True
 
-task1 = {"title": "example", "completed": False}
-task2 = {"title": "example", "completed": False}
+task1 = {"title": "Wash the dishes", "completed": True}
+task2 = {"title": "Do my homework", "completed": False}
 task_list = [task1, task2]
 
 
 
 def choose_action():
+    print("\n")
     print("1. View tasks")
     print("2. Add task")
     print("3. Mark task as complete or incomplete")
@@ -23,14 +24,20 @@ def choose_action():
     return action
 
 def view_task():
-    for task in task_list:
-        print(task)
-        print("\n")
+    if not task_list:
+        print("You don't have any tasks")
+        return
+
+    for i, task in enumerate(task_list):
+        if task["completed"] == False:
+            print(f"{i + 1}. [ ] {task["title"]}")
+        else:
+            print(f"{i + 1}. [x] {task["title"]}")
 
 def add_task():
     print("Enter the task name")
     name = input()
-    new_dict = {"title" : "name", "completed" : False}
+    new_dict = {"title" : name, "completed" : False}
     task_list.append(new_dict)
 
 def mark_task():
