@@ -35,18 +35,25 @@ def view_task():
             print(f"{i + 1}. [x] {task["title"]}")
 
 def add_task():
-    print("Enter the task name")
+    view_task()
+    print("Enter the task name or type cancel to go back")
     name = input()
-    new_dict = {"title" : name, "completed" : False}
-    task_list.append(new_dict)
+    if name.lower() == "cancel":
+        return
+    else: 
+        new_dict = {"title" : name, "completed" : False}
+        task_list.append(new_dict)
 
 def mark_task():
-    print("Enter the number of the task you wish to mark")
+    view_task()
+    print("Enter the number of the task you wish to mark or type -1 to exit")
     while True:
         try:
-            task_num = int(input()) - 1
-
-            if task_num < len(task_list):
+            task_num = int(input())
+            task_num2 = task_num - 1
+            if task_num == -1:
+                return
+            elif task_num2 < len(task_list):
                 break
             else:
                 print("Not a valid task number")
@@ -55,7 +62,7 @@ def mark_task():
             print("Please enter a valid task number.")
 
     valid_mark = ["completed", "incomplete"]
-    print(f"Do you wish to mark task {task_num} as complete or incomplete? Enter completed/incomplete")
+    print(f"Do you wish to mark task {task_num2} as complete or incomplete? Enter completed/incomplete")
     mark_status = input().lower()
 
     while mark_status not in valid_mark:
@@ -63,19 +70,22 @@ def mark_task():
         mark_status = input().lower()
 
     if mark_status == "completed":
-        num = task_list[task_num]
+        num = task_list[task_num2]
         num["completed"] = True
     else:
-        num = task_list[task_num]
+        num = task_list[task_num2]
         num["completed"] = False
 
 def delete_task():
-    print("Which task would you like to delete?")
+    view_task()
+    print("Which task would you like to delete or type -1 to exit")
     while True:
         try:
-            task_num = int(input()) - 1
-
-            if task_num < len(task_list):
+            task_num = int(input())
+            task_num2 = task_num - 1
+            if task_num == -1:
+                return
+            elif task_num2 < len(task_list):
                 break
             else:
                 print("Not a valid task number")
