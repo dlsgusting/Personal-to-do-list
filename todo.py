@@ -1,11 +1,15 @@
-import sys
+import json
+from pathlib import Path
 
 running = True
 
-task1 = {"title": "Wash the dishes", "completed": True}
-task2 = {"title": "Do my homework", "completed": False}
-task_list = [task1, task2]
+task_list = []
 
+
+file_path = Path(__file__).parent / "tasks.json"
+
+with open(file_path, "r") as file:
+    task_list = json.load(file)
 
 
 def choose_action():
@@ -95,7 +99,8 @@ def delete_task():
     del task_list[task_num]
 
 def exit_menu():
-    sys.exit()
+    global running
+    running = False
 
 actions = {
     1: view_task,
@@ -109,6 +114,6 @@ while running:
     selected = choose_action()
     actions[selected]()
 
-    # running = False
 
-
+with open(file_path, "w") as file:
+    json.dump(task_list, file, indent=4)
